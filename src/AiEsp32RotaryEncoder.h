@@ -43,6 +43,7 @@ private:
 
 	bool _circleValues = false;
 	bool isEnabled = true;
+	bool wasTimeouted = false;
 
 	uint8_t encoderAPin = AIESP32ROTARYENCODER_DEFAULT_A_PIN;
 	uint8_t encoderBPin = AIESP32ROTARYENCODER_DEFAULT_B_PIN;
@@ -60,8 +61,6 @@ private:
 	ButtonState buttonState;
 
 	int8_t enc_states[16] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
-	void (*ISR_callback)();
-	void (*ISR_button)();
 
 public:
 	AiEsp32RotaryEncoder(

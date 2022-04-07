@@ -244,7 +244,6 @@ void AiEsp32RotaryEncoder::disable()
 
 bool AiEsp32RotaryEncoder::isEncoderButtonClicked(unsigned long maximumWaitMilliseconds)
 {
-	static bool wasTimeouted = false;
 	int button = 1 - digitalRead(encoderButtonPin);
 	if (!button)
 	{
