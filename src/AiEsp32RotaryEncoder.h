@@ -19,7 +19,7 @@
 class AiEsp32RotaryEncoder
 {
 
-private:
+protected:
 #if defined(ESP8266)
 #else
 	portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
