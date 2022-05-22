@@ -86,6 +86,7 @@ public:
 	void enable();
 	void disable();
 	long readEncoder();
+	bool readEncoder(long* pEncoderPos);
 	void setEncoderValue(long newValue);
 	long encoderChanged();
 	unsigned long getAcceleration() { return this->rotaryAccelerationCoef; }

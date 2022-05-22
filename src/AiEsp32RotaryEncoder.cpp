@@ -122,6 +122,20 @@ long AiEsp32RotaryEncoder::readEncoder()
 	return (this->encoder0Pos / this->encoderSteps);
 }
 
+bool AiEsp32RotaryEncoder::readEncoder(long *pEncoderPos)
+{
+	bool fNew = false;
+	portENTER_CRITICAL(&(this->mux));
+	long curPos = (this->encoder0Pos / this->encoderSteps);
+	if (curPos != this->lastReadEncoder0Pos)
+		{
+		this->lastReadEncoder0Pos = _encoder0Pos;
+		fNew = true
+		}
+	portEXIT_CRITICAL(&(this->mux));
+	return fNew
+}
+
 void AiEsp32RotaryEncoder::setEncoderValue(long newValue)
 {
 	reset(newValue);
@@ -155,6 +169,7 @@ void AiEsp32RotaryEncoder::begin()
 
 void AiEsp32RotaryEncoder::reset(long newValue_)
 {
+	portENTER_CRITICAL(&(this->mux));
 	newValue_ = newValue_ * this->encoderSteps;
 	this->encoder0Pos = newValue_;
 	if (this->encoder0Pos > this->_maxEncoderValue)
@@ -162,6 +177,7 @@ void AiEsp32RotaryEncoder::reset(long newValue_)
 	if (this->encoder0Pos < this->_minEncoderValue)
 		this->encoder0Pos = this->_circleValues ? this->_maxEncoderValue : this->_minEncoderValue;
 	this->lastReadEncoder0Pos = this->encoder0Pos;
+	portEXIT_CRITICAL(&(this->mux));
 }
 
 void AiEsp32RotaryEncoder::enable()
