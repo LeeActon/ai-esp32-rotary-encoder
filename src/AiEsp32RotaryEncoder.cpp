@@ -129,8 +129,9 @@ bool AiEsp32RotaryEncoder::readEncoder(long *pEncoderPos)
 	long curPos = (this->encoder0Pos / this->encoderSteps);
 	if (curPos != this->lastReadEncoder0Pos)
 		{
-		this->lastReadEncoder0Pos = _encoder0Pos;
-		fNew = true
+		*pEncoderPos = curPos;
+		this->lastReadEncoder0Pos = curPos;
+		fNew = true;
 		}
 	portEXIT_CRITICAL(&(this->mux));
 	return fNew;
