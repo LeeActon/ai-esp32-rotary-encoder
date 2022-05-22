@@ -46,7 +46,26 @@ protected:
 	long lastReadEncoder0Pos;
 	bool previous_butt_state;
 
-	int8_t enc_states[16] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
+	int8_t enc_states[16] =
+		{
+		    // BA BA - Old -- > New - Zero indicates switch closure
+		 0,	// 00 00 -       AB --> AB      - No change
+		-1,	// 00 01 -       AB --> B       - Counter Clockwise (A leads B )
+		 1,	// 00 10 -       AB --> A       - Clockwise (B leads A)
+		 0,	// 00 11 -       AB --> Nothing - Invalid
+		 1,	// 01 00 -        B --> AB      - Clockwise (B leads A)
+		 0,	// 01 01 -        B --> B       - No change
+		 0,	// 01 10 -        B --> A       - Invalid
+		-1,	// 01 11 -        B --> Nothing - Counter Clockwise (A leads B)
+		-1,	// 10 00 -        A --> AB      - Counter Clockwise (A leads B)
+		 0,	// 10 01 -        A --> B       - Invalid
+		 0,	// 10 10 -        A --> A       - No change
+		 1,	// 10 11 -        A --> Nothing - Clockwise (B leads A)
+		 0,	// 11 00 - Nothing --> AB       - Invalid
+		 1,	// 11 01 - Nothing --> B        - Clockwise (B leads A)
+		-1,	// 11 10 - Nothing --> A        - Counter Clockwise (A leads B)
+		 0	// 11 11 - Nothing --> Nothing  - No change
+		};
 
 public:
 	AiEsp32RotaryEncoder(

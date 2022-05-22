@@ -157,11 +157,11 @@ void AiEsp32RotaryEncoder::reset(long newValue_)
 {
 	newValue_ = newValue_ * this->encoderSteps;
 	this->encoder0Pos = newValue_;
-	this->lastReadEncoder0Pos = this->encoder0Pos;
 	if (this->encoder0Pos > this->_maxEncoderValue)
 		this->encoder0Pos = this->_circleValues ? this->_minEncoderValue : this->_maxEncoderValue;
 	if (this->encoder0Pos < this->_minEncoderValue)
 		this->encoder0Pos = this->_circleValues ? this->_maxEncoderValue : this->_minEncoderValue;
+	this->lastReadEncoder0Pos = this->encoder0Pos;
 }
 
 void AiEsp32RotaryEncoder::enable()
