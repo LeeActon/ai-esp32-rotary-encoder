@@ -133,7 +133,7 @@ bool AiEsp32RotaryEncoder::readEncoder(long *pEncoderPos)
 		fNew = true
 		}
 	portEXIT_CRITICAL(&(this->mux));
-	return fNew
+	return fNew;
 }
 
 void AiEsp32RotaryEncoder::setEncoderValue(long newValue)
